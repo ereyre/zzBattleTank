@@ -44,6 +44,6 @@ je vais ajouter le design document pour mémoire
 ### Gestion avec git des gros fichiers :
 Utilisation de Git LFS : https://git-lfs.github.com/
 
-  git lfs install
-  git lfs track "*.uasset"
-  git lfs track "*.umap"
+    git lfs install
+    git lfs track *.uasset
+    git lfs track *.umap
