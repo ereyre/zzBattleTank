@@ -37,4 +37,13 @@ je vais ajouter le design document pour mémoire
     - enemy name, hp ...
  - Flare effects ( gun, hit on tank or landscape)
  -Background soud / music/ ambiance
- 
+
+
+## Pour plus tard
+
+### Gestion avec git des gros fichiers :
+Utilisation de Git LFS : https://git-lfs.github.com/
+
+  git lfs install
+  git lfs track "*.uasset"
+  git lfs track "*.umap"
