@@ -33,3 +33,16 @@ void ATank::SetupPlayerInputComponent(class UInputComponent* InputComponent)
 
 }
 
+void ATank::AimAt(FVector hitLocation)
+{
+	FString tankName = GetName();
+
+	UE_LOG(LogTemp, Warning, TEXT("Tank %s aim at : %s"), *tankName,  *hitLocation.ToString());
+
+	//draw lines to visualize that
+	//DrawDebugLine(GetWorld(), GetTransform().GetLocation(), hitLocation, FColor(255, 0, 0), false, -1.0f, 0.0f, 10.0f);
+
+
+
+}
+

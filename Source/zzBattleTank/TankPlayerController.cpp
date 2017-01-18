@@ -40,7 +40,7 @@ void ATankPlayerController::AimTowardCrosshair()
 		// if we hits the landscape
 		// tell controlled tank to aim at this point
 
-		//UE_LOG(LogTemp, Warning, TEXT("Player aim at : %s"), *hitLocation.ToString());
+		GetControlledTank()->AimAt(hitLocation);
 	}
 
 	
@@ -58,13 +58,8 @@ bool ATankPlayerController::GetSightHiRaytLocation(FVector& hitLocation) const
 	if (GetLookDirection(screenLocation, lookDirection)) {
 		//UE_LOG(LogTemp, Warning, TEXT(" Look direction : %s"), *lookDirection.ToString());
 		// Linetrace along  that look direction and see what we hit (up to may range)
-		FVector hitLoc;
 
-		if (GetLookVectorHitLocation(lookDirection, hitLoc)) {
-			UE_LOG(LogTemp, Warning, TEXT("We Hit something at %s"), *hitLoc.ToString());
-		}
-
-	
+		GetLookVectorHitLocation(lookDirection, hitLocation);
 	}
 
 
@@ -113,7 +108,7 @@ bool ATankPlayerController::GetLookVectorHitLocation(FVector lookDirection, FVec
 
 	
 
-
+	hitLocation = FVector(0);
 	return false;
 }
 

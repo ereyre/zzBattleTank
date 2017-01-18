@@ -16,12 +16,35 @@ void ATankAiController::BeginPlay()
 	ATank* tank = GetPlayerTank();
 
 	if (!tank) {
-		UE_LOG(LogTemp, Error, TEXT(" AI Say : I dont find a player tankj"))
+		UE_LOG(LogTemp, Error, TEXT(" AI Say : I dont find any player tank"))
 	}
 	else
 	{
-		UE_LOG(LogTemp, Warning, TEXT("AI Say : Found the tank of : %s "), *tank->GetName());
+		UE_LOG(LogTemp, Warning, TEXT("AI Say : Found the my tank of : %s "), *tank->GetName());
 	}
+}
+
+void ATankAiController::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+
+	// Find the player tank
+	ATank* playerTank = GetPlayerTank();
+
+	// aim at it (if exist)
+	if (playerTank) {
+
+		// TODO move toward the player
+
+		// Aim toward th eplayer
+		GetControlledTank()->AimAt(playerTank->GetActorLocation());
+
+
+		// TODO shoot to player tank if in range
+
+	}
+
+
 }
 
 ATank* ATankAiController::GetControlledTank() const

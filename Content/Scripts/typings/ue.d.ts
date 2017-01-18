@@ -6705,6 +6705,7 @@ declare class TankAiController extends AIController {
 declare class TankPlayerController extends PlayerController { 
 	CrossHairXLocation: number;
 	CrossHaireYLocation: number;
+	LineTraceRange: number;
 	constructor(InWorld: World, Location?: Vector, Rotation?: Rotator);
 	static StaticClass: any;
 	static GetClassObject(): Class;
