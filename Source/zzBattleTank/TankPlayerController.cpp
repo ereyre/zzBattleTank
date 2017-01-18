@@ -22,10 +22,78 @@ void ATankPlayerController::BeginPlay()
 	{
 		UE_LOG(LogTemp, Warning, TEXT("PlayerController Begin Play %s "), *tank->GetName());
 	}
+}
+
+void ATankPlayerController::AimTowardCrosshair()
+{
+	if (!GetControlledTank())
+		return;   //do nothing
+
+
+	FVector hitLocation; // Out parameter
 
 	
 
+	// Get world location if linetrace through crosshair
+
+	if (GetSightHiRaytLocation(hitLocation)) {
+		// if we hits the landscape
+		// tell controlled tank to aim at this point
+
+		//UE_LOG(LogTemp, Warning, TEXT("Player aim at : %s"), *hitLocation.ToString());
+	}
+
+	
+}
+
+bool ATankPlayerController::GetSightHiRaytLocation(FVector& hitLocation) const
+{
+	// Find the crosshaire position
+	int32 viewportSizeX, viewportSizeY;
+	GetViewportSize(viewportSizeX, viewportSizeY);
+	FVector2D screenLocation = FVector2D(viewportSizeX*CrossHairXLocation, viewportSizeY*CrossHaireYLocation);
+
+	FVector lookDirection;
+
+	if (GetLookDirection(screenLocation, lookDirection)) {
+		UE_LOG(LogTemp, Warning, TEXT(" Look direction : %s"), *lookDirection.ToString());
+	}
 	
 
+	// Linetrace along  that look direction and see what we hit (up to may range)
+
+
+
+
+	return true;
+}
+
+bool ATankPlayerController::GetLookDirection(FVector2D screenLocation, FVector& lookDirection) const
+{
+	// "de-repoject" the screen position of the crosshair to world direction
+	FVector  worldLocation;
+
+
+	if (!DeprojectScreenPositionToWorld(screenLocation.X, screenLocation.Y, worldLocation, lookDirection)) {
+		UE_LOG(LogTemp, Error, TEXT("Can't deproject scrfeen to world !!!!"));
+		return false;
+	}
+
+	return true;
+}
+
+
+// Tick
+void ATankPlayerController::PlayerTick(float deltaSeconds)
+{
+	// Super
+	Super::PlayerTick(deltaSeconds);
+	// AimToward Crosshaire()
+	AimTowardCrosshair();
 
 }
+	
+
+
+
+

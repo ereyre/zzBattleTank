@@ -6680,6 +6680,28 @@ declare class UdpMessagingSettings extends UObject {
 	static C(Other: UObject): UdpMessagingSettings;
 }
 
+declare class Tank extends Pawn { 
+	constructor(InWorld: World, Location?: Vector, Rotation?: Rotator);
+	static StaticClass: any;
+	static GetClassObject(): Class;
+	static GetDefaultObject(): Tank;
+	static GetDefaultSubobjectByName(Name: string): UObject;
+	static SetDefaultSubobjectClass(Name: string): void;
+	static CreateDefaultSubobject(Name: string, Transient?: boolean, Required?: boolean, Abstract?: boolean): Tank;
+	static C(Other: UObject): Tank;
+}
+
+declare class TankPlayerController extends PlayerController { 
+	constructor(InWorld: World, Location?: Vector, Rotation?: Rotator);
+	static StaticClass: any;
+	static GetClassObject(): Class;
+	static GetDefaultObject(): TankPlayerController;
+	static GetDefaultSubobjectByName(Name: string): UObject;
+	static SetDefaultSubobjectClass(Name: string): void;
+	static CreateDefaultSubobject(Name: string, Transient?: boolean, Required?: boolean, Abstract?: boolean): TankPlayerController;
+	static C(Other: UObject): TankPlayerController;
+}
+
 declare class zzBattleTankGameModeBase extends GameModeBase { 
 	constructor(InWorld: World, Location?: Vector, Rotation?: Rotator);
 	static StaticClass: any;
