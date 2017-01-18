@@ -22,6 +22,10 @@ public:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "TankPlayerController")
 	float CrossHaireYLocation = 0.33333333f;
 
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "TankPlayerController")
+		float LineTraceRange =1000000.0f;
+
+
 private:
 
 	// Called every frame
@@ -37,7 +41,7 @@ private:
 
 	bool GetLookDirection(FVector2D screenLocation, FVector& lookDirection) const;
 
-
+	bool GetLookVectorHitLocation(FVector lookDirection, FVector& hitLocation) const;
 
 	
 };

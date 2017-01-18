@@ -56,13 +56,16 @@ bool ATankPlayerController::GetSightHiRaytLocation(FVector& hitLocation) const
 	FVector lookDirection;
 
 	if (GetLookDirection(screenLocation, lookDirection)) {
-		UE_LOG(LogTemp, Warning, TEXT(" Look direction : %s"), *lookDirection.ToString());
-	}
+		//UE_LOG(LogTemp, Warning, TEXT(" Look direction : %s"), *lookDirection.ToString());
+		// Linetrace along  that look direction and see what we hit (up to may range)
+		FVector hitLoc;
+
+		if (GetLookVectorHitLocation(lookDirection, hitLoc)) {
+			UE_LOG(LogTemp, Warning, TEXT("We Hit something at %s"), *hitLoc.ToString());
+		}
+
 	
-
-	// Linetrace along  that look direction and see what we hit (up to may range)
-
-
+	}
 
 
 	return true;
@@ -81,6 +84,40 @@ bool ATankPlayerController::GetLookDirection(FVector2D screenLocation, FVector& 
 
 	return true;
 }
+
+bool ATankPlayerController::GetLookVectorHitLocation(FVector lookDirection, FVector & hitLocation) const
+{
+	
+	FVector startLocation = PlayerCameraManager->GetCameraLocation();
+	FVector endLocation = startLocation + (lookDirection * LineTraceRange);
+
+	// Draw a red trace in the world to visualise
+	//DrawDebugLine(GetWorld(), startLocation, endLocation, FColor(255, 0, 0), false, -1.0f, 0.0f, 10.0f);
+
+		
+	FHitResult hitResult;
+
+	if (GetWorld()->LineTraceSingleByChannel(hitResult, startLocation, endLocation, ECollisionChannel::ECC_Visibility)) {
+		// We hit something  !!!!
+
+		// for memory 
+		//AActor* actorHit = hitResult.GetActor();
+		//hitLocation = actorHit->GetTransform().GetLocation();
+		//on va lui demander son petiot nom
+		//UE_LOG(LogTemp, Warning, TEXT("We Hit something at  which name is %s "), *actorHit->GetName());
+
+
+		hitLocation = hitResult.Location;
+		return true;
+	}
+
+	
+
+
+	return false;
+}
+
+
 
 
 // Tick
