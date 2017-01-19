@@ -2,6 +2,7 @@
 
 #include "zzBattleTank.h"
 #include "TankBarrel.h"
+#include "TankTurret.h"
 #include "TankAimingComponent.h"
 #include "Tank.h"
 
@@ -43,5 +44,10 @@ void ATank::AimAt(FVector hitLocation)
 void ATank::SetBarrelReference(UTankBarrel * barrelToSet)
 {
 	TankAimingComponent->SetBarrelReference(barrelToSet);
+}
+
+void ATank::SetTurretReference(UTankTurret * turretToSet)
+{
+	TankAimingComponent->SetTurretReference(turretToSet);
 }
 

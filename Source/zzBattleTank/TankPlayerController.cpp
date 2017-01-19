@@ -32,11 +32,7 @@ void ATankPlayerController::AimTowardCrosshair()
 
 
 	FVector hitLocation; // Out parameter
-
 	
-
-	// Get world location if linetrace through crosshair
-
 	if (GetSightHiRaytLocation(hitLocation)) {
 		// if we hits the landscape
 		// tell controlled tank to aim at this point
@@ -117,13 +113,16 @@ bool ATankPlayerController::GetLookVectorHitLocation(FVector lookDirection, FVec
 
 
 // Tick
-void ATankPlayerController::PlayerTick(float deltaSeconds)
-{
-	// Super
-	Super::PlayerTick(deltaSeconds);
-	// AimToward Crosshaire()
-	AimTowardCrosshair();
 
+
+void ATankPlayerController::PlayerTick(float DeltaTime)
+{
+	Super::PlayerTick(DeltaTime);
+
+	auto time = GetWorld()->GetTimeSeconds();
+	UE_LOG(LogTemp, Warning, TEXT("%f : PLayer controller Tick "), time);
+
+	AimTowardCrosshair();
 }
 	
 

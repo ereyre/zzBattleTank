@@ -2,6 +2,7 @@
 
 #include "zzBattleTank.h"
 #include "TankBarrel.h"
+#include "TankTurret.h"
 #include "TankAimingComponent.h"
 
 
@@ -44,8 +45,20 @@ void UTankAimingComponent::AimAt(FVector hitLocation, float launchSpeed)
 	FVector startLocation = Barrel->GetSocketLocation(FName("Projectile"));
 
 	//Calculate the OutLaunchVelocity
+	bool bHaveAimSolution = UGameplayStatics::SuggestProjectileVelocity
+	(
+		this,
+		outLaunchVelocity,
+		startLocation,
+		hitLocation,
+		launchSpeed,
+		false,
+		0,
+		0,
+		ESuggestProjVelocityTraceOption::DoNotTrace // Paramater must be present to prevent bug
+	);
 
-	if (UGameplayStatics::SuggestProjectileVelocity(this, outLaunchVelocity, startLocation, hitLocation, launchSpeed)) {
+	if (bHaveAimSolution) {
 		FVector aimDirection = outLaunchVelocity.GetSafeNormal();
 		//UE_LOG(LogTemp, Warning, TEXT("%s Aiming at %s"), *GetOwner()->GetName(), *aimDirection.ToString());
 
@@ -53,11 +66,11 @@ void UTankAimingComponent::AimAt(FVector hitLocation, float launchSpeed)
 
 
 	}
-	else {
+	/*else {
 		auto time = GetWorld()->GetTimeSeconds();
 		UE_LOG(LogTemp, Warning, TEXT("%f : No valid shoot solution for %s"), time, *GetOwner()->GetName())
 	}
-
+	*/
 	
 
 	//DrawDebugLine(GetWorld(), startLocation, hitLocation, FColor(255, 0, 0), false, -1.0f, 0.0f, 10.0f);
@@ -68,6 +81,11 @@ void UTankAimingComponent::AimAt(FVector hitLocation, float launchSpeed)
 void UTankAimingComponent::SetBarrelReference(UTankBarrel * barrelToSet)
 {
 	Barrel = barrelToSet;
+}
+
+void UTankAimingComponent::SetTurretReference(UTankTurret * turretToSet)
+{
+	Turret = turretToSet;
 }
 
 void UTankAimingComponent::MoveBarrelTowards(FVector aimDirection)
@@ -81,7 +99,11 @@ void UTankAimingComponent::MoveBarrelTowards(FVector aimDirection)
 
 	
 
-	Barrel->Elevate(deltaRotator.Pitch); //TODO remove magic number
+	Barrel->Elevate(deltaRotator.Pitch); 
+
+	Turret->Rotate(deltaRotator.Yaw);  
+
+
 
 	// Move the barrel the right amount this frame
 	// Given a max elevation speed, and the frame time

@@ -9,6 +9,7 @@
 //Forward declaration
 class UTankBarrel; 
 class UTankAimingComponent;
+class UTankTurret; 
 
 // Tank Cpp based on Pawn
 UCLASS()
@@ -33,6 +34,9 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = Setup)
 	void SetBarrelReference(UTankBarrel* barrelToSet);
+
+	UFUNCTION(BlueprintCallable, Category = Setup)
+		void SetTurretReference(UTankTurret* turretToSet);
 
 	UPROPERTY(EditAnywhere, Category = Firing)
 		float LaunchSpeed = 10000;   //sensible starting value of 1000 m/s

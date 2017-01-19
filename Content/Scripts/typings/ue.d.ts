@@ -6680,6 +6680,21 @@ declare class UdpMessagingSettings extends UObject {
 	static C(Other: UObject): UdpMessagingSettings;
 }
 
+declare class TankTurret extends StaticMeshComponent { 
+	MaxDegreePerSecond: number;
+	constructor();
+	constructor(Outer: UObject);
+	static Load(ResourceName: string): TankTurret;
+	static Find(Outer: UObject, ResourceName: string): TankTurret;
+	static StaticClass: any;
+	static GetClassObject(): Class;
+	static GetDefaultObject(): TankTurret;
+	static GetDefaultSubobjectByName(Name: string): UObject;
+	static SetDefaultSubobjectClass(Name: string): void;
+	static CreateDefaultSubobject(Name: string, Transient?: boolean, Required?: boolean, Abstract?: boolean): TankTurret;
+	static C(Other: UObject): TankTurret;
+}
+
 declare class TankBarrel extends StaticMeshComponent { 
 	MaxDegreePerrSecond: number;
 	MaxElevation: number;
@@ -6706,6 +6721,7 @@ declare class Tank extends Pawn {
 	static GetDefaultSubobjectByName(Name: string): UObject;
 	static SetDefaultSubobjectClass(Name: string): void;
 	static CreateDefaultSubobject(Name: string, Transient?: boolean, Required?: boolean, Abstract?: boolean): Tank;
+	SetTurretReference(turretToSet: TankTurret): void;
 	SetBarrelReference(barrelToSet: TankBarrel): void;
 	static C(Other: UObject): Tank;
 }

@@ -33,7 +33,8 @@ public:
 private:
 
 	// Called every frame
-	virtual void PlayerTick(float deltaSeconds) override;
+
+	virtual void PlayerTick(float DeltaTime) override;
 
 	ATank* GetControlledTank() const;
 
