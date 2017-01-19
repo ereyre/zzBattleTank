@@ -6680,20 +6680,6 @@ declare class UdpMessagingSettings extends UObject {
 	static C(Other: UObject): UdpMessagingSettings;
 }
 
-declare class TankAimingComponent extends ActorComponent { 
-	constructor();
-	constructor(Outer: UObject);
-	static Load(ResourceName: string): TankAimingComponent;
-	static Find(Outer: UObject, ResourceName: string): TankAimingComponent;
-	static StaticClass: any;
-	static GetClassObject(): Class;
-	static GetDefaultObject(): TankAimingComponent;
-	static GetDefaultSubobjectByName(Name: string): UObject;
-	static SetDefaultSubobjectClass(Name: string): void;
-	static CreateDefaultSubobject(Name: string, Transient?: boolean, Required?: boolean, Abstract?: boolean): TankAimingComponent;
-	static C(Other: UObject): TankAimingComponent;
-}
-
 declare class TankBarrel extends StaticMeshComponent { 
 	MaxDegreePerrSecond: number;
 	MaxElevation: number;
@@ -6733,6 +6719,20 @@ declare class TankAiController extends AIController {
 	static SetDefaultSubobjectClass(Name: string): void;
 	static CreateDefaultSubobject(Name: string, Transient?: boolean, Required?: boolean, Abstract?: boolean): TankAiController;
 	static C(Other: UObject): TankAiController;
+}
+
+declare class TankAimingComponent extends ActorComponent { 
+	constructor();
+	constructor(Outer: UObject);
+	static Load(ResourceName: string): TankAimingComponent;
+	static Find(Outer: UObject, ResourceName: string): TankAimingComponent;
+	static StaticClass: any;
+	static GetClassObject(): Class;
+	static GetDefaultObject(): TankAimingComponent;
+	static GetDefaultSubobjectByName(Name: string): UObject;
+	static SetDefaultSubobjectClass(Name: string): void;
+	static CreateDefaultSubobject(Name: string, Transient?: boolean, Required?: boolean, Abstract?: boolean): TankAimingComponent;
+	static C(Other: UObject): TankAimingComponent;
 }
 
 declare class TankPlayerController extends PlayerController { 

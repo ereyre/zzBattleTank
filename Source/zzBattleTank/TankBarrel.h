@@ -19,10 +19,10 @@ public:
 
 private:
 	UPROPERTY(EditAnywhere, Category = Setup)
-		float MaxDegreePerrSecond = 20.0f;  //To find
+		float MaxDegreePerrSecond = 5.0f;  
 
 	UPROPERTY(EditAnywhere, Category = Setup)
-		float MaxElevation = 40.0f;  // can be greater
+		float MaxElevation = 45.0f; 
 	
 	UPROPERTY(EditAnywhere, Category = Setup)
 		float MinElevation = 0.0f;  //beware of the rear of the hull 
