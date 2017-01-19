@@ -1,6 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "zzBattleTank.h"
+#include "TankBarrel.h"
+#include "TankAimingComponent.h"
 #include "Tank.h"
 
 
@@ -8,7 +10,7 @@
 ATank::ATank()
 {
  	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
+	PrimaryActorTick.bCanEverTick = false;
 
 	// no need to protect pointer as added at construction
 	TankAimingComponent =  CreateDefaultSubobject<UTankAimingComponent>(FName("Aiming Component"));
@@ -22,12 +24,6 @@ void ATank::BeginPlay()
 	
 }
 
-// Called every frame
-void ATank::Tick( float DeltaTime )
-{
-	Super::Tick( DeltaTime );
-
-}
 
 // Called to bind functionality to input
 void ATank::SetupPlayerInputComponent(class UInputComponent* InputComponent)
@@ -44,7 +40,7 @@ void ATank::AimAt(FVector hitLocation)
 	
 }
 
-void ATank::SetBarrelReference(UStaticMeshComponent * barrelToSet)
+void ATank::SetBarrelReference(UTankBarrel * barrelToSet)
 {
 	TankAimingComponent->SetBarrelReference(barrelToSet);
 }

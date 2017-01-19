@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "zzBattleTank.h"
+#include "Tank.h"
 #include "TankAiController.h"
 
 ATank * ATankAiController::GetPlayerTank() const

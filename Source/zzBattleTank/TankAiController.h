@@ -3,11 +3,13 @@
 #pragma once
 
 #include "AIController.h"
-#include "Tank.h"
 #include "TankAiController.generated.h"
 
+
+class ATank;
+
 /**
- * 
+ *  Tanp Cpp AI Controller
  */
 UCLASS()
 class ZZBATTLETANK_API ATankAiController : public AAIController

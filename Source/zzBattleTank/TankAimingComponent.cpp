@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "zzBattleTank.h"
+#include "TankBarrel.h"
 #include "TankAimingComponent.h"
 
 
@@ -46,12 +47,16 @@ void UTankAimingComponent::AimAt(FVector hitLocation, float launchSpeed)
 
 	if (UGameplayStatics::SuggestProjectileVelocity(this, outLaunchVelocity, startLocation, hitLocation, launchSpeed)) {
 		FVector aimDirection = outLaunchVelocity.GetSafeNormal();
+		//UE_LOG(LogTemp, Warning, TEXT("%s Aiming at %s"), *GetOwner()->GetName(), *aimDirection.ToString());
 
-		UE_LOG(LogTemp, Warning, TEXT("%s Aiming at %s"), *GetOwner()->GetName(),*aimDirection.ToString())
+		MoveBarrelTowards(aimDirection);
+
+
 	}
-	/*else {
-		UE_LOG(LogTemp, Warning, TEXT("No valid shoot solution for %s"), *GetOwner()->GetName())
-	}*/
+	else {
+		auto time = GetWorld()->GetTimeSeconds();
+		UE_LOG(LogTemp, Warning, TEXT("%f : No valid shoot solution for %s"), time, *GetOwner()->GetName())
+	}
 
 	
 
@@ -60,8 +65,28 @@ void UTankAimingComponent::AimAt(FVector hitLocation, float launchSpeed)
 
 }
 
-void UTankAimingComponent::SetBarrelReference(UStaticMeshComponent * barrelToSet)
+void UTankAimingComponent::SetBarrelReference(UTankBarrel * barrelToSet)
 {
 	Barrel = barrelToSet;
+}
+
+void UTankAimingComponent::MoveBarrelTowards(FVector aimDirection)
+{
+
+	// Workout difference between current barel rotation and aimDirection
+
+	auto barrelRotation = Barrel->GetForwardVector().Rotation();
+	auto aimAsRotator = aimDirection.Rotation();
+	auto deltaRotator = aimAsRotator - barrelRotation;
+
+	
+
+	Barrel->Elevate(5); //TODO remove magic number
+
+	// Move the barrel the right amount this frame
+	// Given a max elevation speed, and the frame time
+
+
+
 }
 

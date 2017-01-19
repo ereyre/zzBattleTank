@@ -3,11 +3,15 @@
 #pragma once
 
 #include "GameFramework/PlayerController.h"
-#include "Tank.h"
 #include "TankPlayerController.generated.h"  // must be the last include
 
+
+
+// forward declaration
+class ATank;
+
 /**
- * 
+ * Player cpp controller
  */
 UCLASS(Blueprintable)
 class ZZBATTLETANK_API ATankPlayerController : public APlayerController
