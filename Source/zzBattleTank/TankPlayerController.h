@@ -20,10 +20,10 @@ class ZZBATTLETANK_API ATankPlayerController : public APlayerController
 	
 public:
 	
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "TankPlayerController")
+	UPROPERTY(BlueprintReadWrite, EditDEfaultsOnly, Category = "TankPlayerController")
 	float CrossHairXLocation = 0.5f;
 
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "TankPlayerController")
+	UPROPERTY(BlueprintReadWrite, EditDEfaultsOnly, Category = "TankPlayerController")
 	float CrossHaireYLocation = 0.33333333f;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "TankPlayerController")

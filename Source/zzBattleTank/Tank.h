@@ -32,19 +32,23 @@ private:
 	// local reference for spawning projectile
 	UTankBarrel* Barrel = nullptr;
 
-	float ReloadTime = 3.0f;
+	
 
-	float LastFireTime = 0.0f;
+	double LastFireTime = 0;
 
 public:
 	
-	UPROPERTY(EditAnywhere, Category = Firing)
+	UPROPERTY(EditDEfaultsOnly, Category = Firing)
 		float LaunchSpeed = 10000;   //sensible starting value of 1000 m/s
 
-	UPROPERTY(EditAnywhere, Category = Setup)
+	UPROPERTY(EditDEfaultsOnly, Category = Firing)
+		float ReloadTime = 3.0;
+
+
+	UPROPERTY(EditDEfaultsOnly, Category = Setup)
 		TSubclassOf<AProjectile> ProjectileBlueprint; // le pourquoi : https://docs.unrealengine.com/latest/INT/Programming/UnrealArchitecture/TSubclassOf/
 
-
+	
 
 	UFUNCTION(BlueprintCallable, Category = Setup)
 	void SetBarrelReference(UTankBarrel* barrelToSet);
