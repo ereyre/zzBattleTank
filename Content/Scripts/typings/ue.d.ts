@@ -6725,6 +6725,7 @@ declare class TankBarrel extends StaticMeshComponent {
 
 declare class Tank extends Pawn { 
 	LaunchSpeed: number;
+	ReloadTime: number;
 	ProjectileBlueprint: UnrealEngineClass;
 	constructor(InWorld: World, Location?: Vector, Rotation?: Rotator);
 	static StaticClass: any;
