@@ -8,7 +8,7 @@
 /**
  * Tank Barrel mouvement controller
  */
-UCLASS( meta = (BlueprintSpawnableComponent), hidecategories = ("Collision"))
+UCLASS( meta = (BlueprintSpawnableComponent)) //, hidecategories = ("Collision"))
 class ZZBATTLETANK_API UTankBarrel : public UStaticMeshComponent
 {
 	GENERATED_BODY()

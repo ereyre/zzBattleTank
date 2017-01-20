@@ -17,9 +17,7 @@ class ZZBATTLETANK_API ATankAiController : public AAIController
 	GENERATED_BODY()
 	
 private:
-	ATank* GetControlledTank() const;
-	ATank* GetPlayerTank() const;
-
+	
 
 	void BeginPlay() override;
 	

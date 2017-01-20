@@ -4,25 +4,17 @@
 #include "Tank.h"
 #include "TankAiController.h"
 
-ATank * ATankAiController::GetPlayerTank() const
-{
-	ATank* tank = Cast<ATank>(GetWorld()->GetFirstPlayerController()->GetPawn());
 
-	return tank;
-}
 
 void ATankAiController::BeginPlay()
 {
 	Super::BeginPlay();
-	ATank* tank = GetPlayerTank();
+	ATank* tank = Cast<ATank>(GetWorld()->GetFirstPlayerController()->GetPawn());
 
 	if (!tank) {
 		UE_LOG(LogTemp, Error, TEXT(" AI Say : I dont find any player tank"))
 	}
-	else
-	{
-		UE_LOG(LogTemp, Warning, TEXT("AI Say : Found the my tank of : %s "), *tank->GetName());
-	}
+	
 }
 
 void ATankAiController::Tick(float DeltaTime)
@@ -30,7 +22,8 @@ void ATankAiController::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 	// Find the player tank
-	ATank* playerTank = GetPlayerTank();
+	ATank* playerTank = Cast<ATank>(GetWorld()->GetFirstPlayerController()->GetPawn());
+	ATank* myAiTank = Cast<ATank>(GetPawn());
 
 	// aim at it (if exist)
 	if (playerTank) {
@@ -38,17 +31,13 @@ void ATankAiController::Tick(float DeltaTime)
 		// TODO move toward the player
 
 		// Aim toward th eplayer
-		GetControlledTank()->AimAt(playerTank->GetActorLocation());
+		myAiTank->AimAt(playerTank->GetActorLocation());
 
 
-		// TODO shoot to player tank if in range
+		// Fire if ready
+		myAiTank->Fire();
 
 	}
-
-
 }
 
-ATank* ATankAiController::GetControlledTank() const
-{
-	return Cast<ATank>(GetPawn());
-}
+

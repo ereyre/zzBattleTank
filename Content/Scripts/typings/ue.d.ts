@@ -6680,6 +6680,17 @@ declare class UdpMessagingSettings extends UObject {
 	static C(Other: UObject): UdpMessagingSettings;
 }
 
+declare class Projectile extends Actor { 
+	constructor(InWorld: World, Location?: Vector, Rotation?: Rotator);
+	static StaticClass: any;
+	static GetClassObject(): Class;
+	static GetDefaultObject(): Projectile;
+	static GetDefaultSubobjectByName(Name: string): UObject;
+	static SetDefaultSubobjectClass(Name: string): void;
+	static CreateDefaultSubobject(Name: string, Transient?: boolean, Required?: boolean, Abstract?: boolean): Projectile;
+	static C(Other: UObject): Projectile;
+}
+
 declare class TankTurret extends StaticMeshComponent { 
 	MaxDegreePerSecond: number;
 	constructor();
@@ -6714,6 +6725,7 @@ declare class TankBarrel extends StaticMeshComponent {
 
 declare class Tank extends Pawn { 
 	LaunchSpeed: number;
+	ProjectileBlueprint: UnrealEngineClass;
 	constructor(InWorld: World, Location?: Vector, Rotation?: Rotator);
 	static StaticClass: any;
 	static GetClassObject(): Class;
@@ -6723,6 +6735,7 @@ declare class Tank extends Pawn {
 	static CreateDefaultSubobject(Name: string, Transient?: boolean, Required?: boolean, Abstract?: boolean): Tank;
 	SetTurretReference(turretToSet: TankTurret): void;
 	SetBarrelReference(barrelToSet: TankBarrel): void;
+	Fire(): void;
 	static C(Other: UObject): Tank;
 }
 
