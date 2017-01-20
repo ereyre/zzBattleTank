@@ -119,8 +119,8 @@ void ATankPlayerController::PlayerTick(float DeltaTime)
 {
 	Super::PlayerTick(DeltaTime);
 
-	auto time = GetWorld()->GetTimeSeconds();
-	UE_LOG(LogTemp, Warning, TEXT("%f : PLayer controller Tick "), time);
+	//auto time = GetWorld()->GetTimeSeconds();
+	//UE_LOG(LogTemp, Warning, TEXT("%f : PLayer controller Tick "), time);
 
 	AimTowardCrosshair();
 }
