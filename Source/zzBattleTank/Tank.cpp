@@ -4,6 +4,7 @@
 #include "TankBarrel.h"
 #include "TankTurret.h"
 #include "TankAimingComponent.h"
+#include "TankMovementComponent.h"
 #include "Projectile.h"
 #include "Tank.h"
 
@@ -16,6 +17,12 @@ ATank::ATank()
 
 	// no need to protect pointer as added at construction
 	TankAimingComponent =  CreateDefaultSubobject<UTankAimingComponent>(FName("Aiming Component"));
+
+
+	//initialisation du module de driver by wire
+	TankMovementComponent = CreateDefaultSubobject<UTankMovementComponent>(FName("Flight by wire component"));
+
+
 
 }
 

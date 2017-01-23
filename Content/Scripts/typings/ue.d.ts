@@ -6691,6 +6691,21 @@ declare class Projectile extends Actor {
 	static C(Other: UObject): Projectile;
 }
 
+declare class TankMovementComponent extends NavMovementComponent { 
+	constructor();
+	constructor(Outer: UObject);
+	static Load(ResourceName: string): TankMovementComponent;
+	static Find(Outer: UObject, ResourceName: string): TankMovementComponent;
+	static StaticClass: any;
+	static GetClassObject(): Class;
+	static GetDefaultObject(): TankMovementComponent;
+	static GetDefaultSubobjectByName(Name: string): UObject;
+	static SetDefaultSubobjectClass(Name: string): void;
+	static CreateDefaultSubobject(Name: string, Transient?: boolean, Required?: boolean, Abstract?: boolean): TankMovementComponent;
+	IntendMoveForward(throttle: number): void;
+	static C(Other: UObject): TankMovementComponent;
+}
+
 declare class TankTurret extends StaticMeshComponent { 
 	MaxDegreePerSecond: number;
 	constructor();
@@ -6727,6 +6742,7 @@ declare class Tank extends Pawn {
 	LaunchSpeed: number;
 	ReloadTime: number;
 	ProjectileBlueprint: UnrealEngineClass;
+	TankMovementComponent: TankMovementComponent;
 	constructor(InWorld: World, Location?: Vector, Rotation?: Rotator);
 	static StaticClass: any;
 	static GetClassObject(): Class;
@@ -6777,6 +6793,22 @@ declare class TankPlayerController extends PlayerController {
 	static SetDefaultSubobjectClass(Name: string): void;
 	static CreateDefaultSubobject(Name: string, Transient?: boolean, Required?: boolean, Abstract?: boolean): TankPlayerController;
 	static C(Other: UObject): TankPlayerController;
+}
+
+declare class TankTrack extends StaticMeshComponent { 
+	TrackMaxDrivingForce: number;
+	constructor();
+	constructor(Outer: UObject);
+	static Load(ResourceName: string): TankTrack;
+	static Find(Outer: UObject, ResourceName: string): TankTrack;
+	static StaticClass: any;
+	static GetClassObject(): Class;
+	static GetDefaultObject(): TankTrack;
+	static GetDefaultSubobjectByName(Name: string): UObject;
+	static SetDefaultSubobjectClass(Name: string): void;
+	static CreateDefaultSubobject(Name: string, Transient?: boolean, Required?: boolean, Abstract?: boolean): TankTrack;
+	SetThrottle(throttle: number): void;
+	static C(Other: UObject): TankTrack;
 }
 
 declare class zzBattleTankGameModeBase extends GameModeBase { 
