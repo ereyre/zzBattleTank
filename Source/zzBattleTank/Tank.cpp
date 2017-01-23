@@ -18,12 +18,6 @@ ATank::ATank()
 	// no need to protect pointer as added at construction
 	TankAimingComponent =  CreateDefaultSubobject<UTankAimingComponent>(FName("Aiming Component"));
 
-
-	//initialisation du module de driver by wire
-	TankMovementComponent = CreateDefaultSubobject<UTankMovementComponent>(FName("Flight by wire component"));
-
-
-
 }
 
 // Called when the game starts or when spawned
