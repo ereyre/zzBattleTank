@@ -29,6 +29,9 @@ public:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "TankPlayerController")
 		float LineTraceRange =1000000.0f;
 
+protected:
+	UFUNCTION(BlueprintCallable, Category = "Setup")
+		ATank* GetControlledTank() const;
 
 private:
 
@@ -36,7 +39,7 @@ private:
 
 	virtual void PlayerTick(float DeltaTime) override;
 
-	ATank* GetControlledTank() const;
+	
 
 	virtual void BeginPlay() override;
 

@@ -5,6 +5,18 @@
 #include "Components/ActorComponent.h"
 #include "TankAimingComponent.generated.h"
 
+
+// Enum for aiming crosshair color
+UENUM()
+enum class EFiringStatus : uint8
+{
+	Unknow,
+	Reloading,
+	Locked,
+	Aiming
+};
+
+
 //Forward declaration
 class UTankBarrel; 
 class UTankTurret;
@@ -16,6 +28,11 @@ class ZZBATTLETANK_API UTankAimingComponent : public UActorComponent
 	GENERATED_BODY()
 
 public:	
+
+	// Aiming status
+	UPROPERTY(BlueprintReadOnly, Category = "Status")
+		EFiringStatus FiringStatus = EFiringStatus::Unknow;
+
 	// Sets default values for this component's properties
 	UTankAimingComponent();
 
@@ -37,6 +54,9 @@ public:
 private:
 	UTankBarrel* Barrel = nullptr;
 	UTankTurret* Turret = nullptr;
+
+	
+
 
 	
 };

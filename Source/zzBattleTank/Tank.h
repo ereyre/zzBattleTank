@@ -64,6 +64,8 @@ public:
 	
 
 protected:
+
+	UPROPERTY(BlueprintReadOnly)
 	UTankAimingComponent* TankAimingComponent = nullptr;
 
 	// Local reference for the driver by wire component

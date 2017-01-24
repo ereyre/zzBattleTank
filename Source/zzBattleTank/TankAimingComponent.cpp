@@ -13,7 +13,9 @@ UTankAimingComponent::UTankAimingComponent()
 	// off to improve performance if you don't need them.
 	PrimaryComponentTick.bCanEverTick = true;
 
-	// ...
+	// initialisation of the default for the fireingstatus
+	FiringStatus = EFiringStatus::Reloading;
+
 }
 
 

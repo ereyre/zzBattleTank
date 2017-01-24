@@ -6691,6 +6691,23 @@ declare class Projectile extends Actor {
 	static C(Other: UObject): Projectile;
 }
 
+declare type EFiringStatus = 'Unknow' | 'Reloading' | 'Locked' | 'Aiming';
+declare var EFiringStatus : { Unknow:'Unknow',Reloading:'Reloading',Locked:'Locked',Aiming:'Aiming', };
+declare class TankAimingComponent extends ActorComponent { 
+	FiringStatus: EFiringStatus;
+	constructor();
+	constructor(Outer: UObject);
+	static Load(ResourceName: string): TankAimingComponent;
+	static Find(Outer: UObject, ResourceName: string): TankAimingComponent;
+	static StaticClass: any;
+	static GetClassObject(): Class;
+	static GetDefaultObject(): TankAimingComponent;
+	static GetDefaultSubobjectByName(Name: string): UObject;
+	static SetDefaultSubobjectClass(Name: string): void;
+	static CreateDefaultSubobject(Name: string, Transient?: boolean, Required?: boolean, Abstract?: boolean): TankAimingComponent;
+	static C(Other: UObject): TankAimingComponent;
+}
+
 declare class TankTrack extends StaticMeshComponent { 
 	TrackMaxDrivingForce: number;
 	constructor();
@@ -6760,6 +6777,7 @@ declare class Tank extends Pawn {
 	LaunchSpeed: number;
 	ReloadTime: number;
 	ProjectileBlueprint: UnrealEngineClass;
+	TankAimingComponent: TankAimingComponent;
 	TankMovementComponent: TankMovementComponent;
 	constructor(InWorld: World, Location?: Vector, Rotation?: Rotator);
 	static StaticClass: any;
@@ -6785,20 +6803,6 @@ declare class TankAiController extends AIController {
 	static C(Other: UObject): TankAiController;
 }
 
-declare class TankAimingComponent extends ActorComponent { 
-	constructor();
-	constructor(Outer: UObject);
-	static Load(ResourceName: string): TankAimingComponent;
-	static Find(Outer: UObject, ResourceName: string): TankAimingComponent;
-	static StaticClass: any;
-	static GetClassObject(): Class;
-	static GetDefaultObject(): TankAimingComponent;
-	static GetDefaultSubobjectByName(Name: string): UObject;
-	static SetDefaultSubobjectClass(Name: string): void;
-	static CreateDefaultSubobject(Name: string, Transient?: boolean, Required?: boolean, Abstract?: boolean): TankAimingComponent;
-	static C(Other: UObject): TankAimingComponent;
-}
-
 declare class TankPlayerController extends PlayerController { 
 	CrossHairXLocation: number;
 	CrossHaireYLocation: number;
@@ -6810,6 +6814,7 @@ declare class TankPlayerController extends PlayerController {
 	static GetDefaultSubobjectByName(Name: string): UObject;
 	static SetDefaultSubobjectClass(Name: string): void;
 	static CreateDefaultSubobject(Name: string, Transient?: boolean, Required?: boolean, Abstract?: boolean): TankPlayerController;
+	GetControlledTank(): Tank;
 	static C(Other: UObject): TankPlayerController;
 }
 
