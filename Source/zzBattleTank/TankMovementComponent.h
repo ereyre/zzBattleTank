@@ -17,15 +17,15 @@ class ZZBATTLETANK_API UTankMovementComponent : public UNavMovementComponent
 
 public:
 	// Intend move forward /backward in flight by wire mode
-	UFUNCTION(BlueprintCallable, Category = Input)
+	UFUNCTION(BlueprintCallable, Category = "Input")
 		void IntendMoveForward(float throttle);
 	
 	// intend to rotate clockwise in flight by wire mode
-	UFUNCTION(BlueprintCallable, Category = Input)
+	UFUNCTION(BlueprintCallable, Category = "Input")
 		void IntendTurnRight(float throttle);
 
 	// IKnitialise movement Compoenent and add tracks
-	UFUNCTION(BlueprintCallable, Category = Setup)
+	UFUNCTION(BlueprintCallable, Category = "Setup")
 		void Initialise(UTankTrack* leftTrack, UTankTrack* rightTrack);
 
 	//TODO check best protection

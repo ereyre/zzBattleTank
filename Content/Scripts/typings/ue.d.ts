@@ -6718,6 +6718,7 @@ declare class TankMovementComponent extends NavMovementComponent {
 	static GetDefaultSubobjectByName(Name: string): UObject;
 	static SetDefaultSubobjectClass(Name: string): void;
 	static CreateDefaultSubobject(Name: string, Transient?: boolean, Required?: boolean, Abstract?: boolean): TankMovementComponent;
+	IntendTurnRight(throttle: number): void;
 	IntendMoveForward(throttle: number): void;
 	Initialise(leftTrack: TankTrack,rightTrack: TankTrack): void;
 	static C(Other: UObject): TankMovementComponent;

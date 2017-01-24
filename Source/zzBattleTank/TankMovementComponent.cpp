@@ -48,9 +48,23 @@ void UTankMovementComponent::Initialise(UTankTrack * leftTrack, UTankTrack * rig
 
 void UTankMovementComponent::RequestDirectMove(const FVector & MoveVelocity, bool bForceMaxSpeed)
 {
-	// log name and vector
-	auto name = GetOwner()->GetName();
-	auto direction = MoveVelocity.ToString();
-	UE_LOG(LogTemp, Warning, TEXT("%s Request directmove toward %s"), *name, *direction);
+	
+	auto tankForward = GetOwner()->GetActorForwardVector().GetSafeNormal();
+	auto aiForwardIntent = MoveVelocity.GetSafeNormal();
+	float throttleReq = FVector::DotProduct(aiForwardIntent, tankForward);
+
+	// dot product for the throttle
+	IntendMoveForward(throttleReq);
+
+
+	// now, calculate the roation ( I hate math)
+
+	FVector rotationAsked = FVector::CrossProduct(tankForward, aiForwardIntent);
+
+	IntendTurnRight(rotationAsked.Z);
+
+	
+	//auto nom = GetOwner()->GetName();
+	//UE_LOG(LogTemp, Warning, TEXT(" %s - rotation asked is %f "), *nom, rotationAsked.Z);
 
 }
