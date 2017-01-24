@@ -29,7 +29,7 @@ void ATankAiController::Tick(float DeltaTime)
 	if (playerTank) {
 
 		// TODO move toward the player
-
+		MoveToActor(playerTank, AcceptanceRadius); //TODO check if radius is in centimenter
 		// Aim toward th eplayer
 		myAiTank->AimAt(playerTank->GetActorLocation());
 

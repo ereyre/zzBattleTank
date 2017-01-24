@@ -23,4 +23,7 @@ private:
 	
 	virtual void Tick(float DeltaTime);
 
+	float AcceptanceRadius = 3000;
+
+
 };

@@ -9,17 +9,26 @@
 
 void UTankMovementComponent::IntendMoveForward(float throttle)
 {
-	if (throttle != 0.0f) {
+	/*if (throttle != 0.0f) {
 		auto time = GetWorld()->GetTimeSeconds();
 		UE_LOG(LogTemp, Warning, TEXT("%f : Advance Throttle asked  %f"), time, throttle);
-	}
-	
+	}*/
+	if (!LeftTrack || !RightTrack) return;
 
 	LeftTrack->SetThrottle(throttle);
 	RightTrack->SetThrottle(throttle);
 
 	// TODO prevent double-speed cause by using stick + shoulder button
 
+
+}
+
+void UTankMovementComponent::IntendTurnRight(float throttle)
+{
+	if (!LeftTrack || !RightTrack) return;
+
+	LeftTrack->SetThrottle(throttle);
+	RightTrack->SetThrottle(-throttle);
 
 }
 
@@ -35,4 +44,13 @@ void UTankMovementComponent::Initialise(UTankTrack * leftTrack, UTankTrack * rig
 
 
 	
+}
+
+void UTankMovementComponent::RequestDirectMove(const FVector & MoveVelocity, bool bForceMaxSpeed)
+{
+	// log name and vector
+	auto name = GetOwner()->GetName();
+	auto direction = MoveVelocity.ToString();
+	UE_LOG(LogTemp, Warning, TEXT("%s Request directmove toward %s"), *name, *direction);
+
 }
