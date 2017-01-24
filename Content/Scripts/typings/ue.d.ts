@@ -6693,6 +6693,38 @@ declare class Projectile extends Actor {
 
 declare type EFiringStatus = 'Unknow' | 'Reloading' | 'Locked' | 'Aiming';
 declare var EFiringStatus : { Unknow:'Unknow',Reloading:'Reloading',Locked:'Locked',Aiming:'Aiming', };
+declare class TankBarrel extends StaticMeshComponent { 
+	MaxDegreePerrSecond: number;
+	MaxElevation: number;
+	MinElevation: number;
+	constructor();
+	constructor(Outer: UObject);
+	static Load(ResourceName: string): TankBarrel;
+	static Find(Outer: UObject, ResourceName: string): TankBarrel;
+	static StaticClass: any;
+	static GetClassObject(): Class;
+	static GetDefaultObject(): TankBarrel;
+	static GetDefaultSubobjectByName(Name: string): UObject;
+	static SetDefaultSubobjectClass(Name: string): void;
+	static CreateDefaultSubobject(Name: string, Transient?: boolean, Required?: boolean, Abstract?: boolean): TankBarrel;
+	static C(Other: UObject): TankBarrel;
+}
+
+declare class TankTurret extends StaticMeshComponent { 
+	MaxDegreePerSecond: number;
+	constructor();
+	constructor(Outer: UObject);
+	static Load(ResourceName: string): TankTurret;
+	static Find(Outer: UObject, ResourceName: string): TankTurret;
+	static StaticClass: any;
+	static GetClassObject(): Class;
+	static GetDefaultObject(): TankTurret;
+	static GetDefaultSubobjectByName(Name: string): UObject;
+	static SetDefaultSubobjectClass(Name: string): void;
+	static CreateDefaultSubobject(Name: string, Transient?: boolean, Required?: boolean, Abstract?: boolean): TankTurret;
+	static C(Other: UObject): TankTurret;
+}
+
 declare class TankAimingComponent extends ActorComponent { 
 	FiringStatus: EFiringStatus;
 	constructor();
@@ -6705,6 +6737,7 @@ declare class TankAimingComponent extends ActorComponent {
 	static GetDefaultSubobjectByName(Name: string): UObject;
 	static SetDefaultSubobjectClass(Name: string): void;
 	static CreateDefaultSubobject(Name: string, Transient?: boolean, Required?: boolean, Abstract?: boolean): TankAimingComponent;
+	Initialise(barrelToSet: TankBarrel,turretToSet: TankTurret): void;
 	static C(Other: UObject): TankAimingComponent;
 }
 
@@ -6741,38 +6774,6 @@ declare class TankMovementComponent extends NavMovementComponent {
 	static C(Other: UObject): TankMovementComponent;
 }
 
-declare class TankTurret extends StaticMeshComponent { 
-	MaxDegreePerSecond: number;
-	constructor();
-	constructor(Outer: UObject);
-	static Load(ResourceName: string): TankTurret;
-	static Find(Outer: UObject, ResourceName: string): TankTurret;
-	static StaticClass: any;
-	static GetClassObject(): Class;
-	static GetDefaultObject(): TankTurret;
-	static GetDefaultSubobjectByName(Name: string): UObject;
-	static SetDefaultSubobjectClass(Name: string): void;
-	static CreateDefaultSubobject(Name: string, Transient?: boolean, Required?: boolean, Abstract?: boolean): TankTurret;
-	static C(Other: UObject): TankTurret;
-}
-
-declare class TankBarrel extends StaticMeshComponent { 
-	MaxDegreePerrSecond: number;
-	MaxElevation: number;
-	MinElevation: number;
-	constructor();
-	constructor(Outer: UObject);
-	static Load(ResourceName: string): TankBarrel;
-	static Find(Outer: UObject, ResourceName: string): TankBarrel;
-	static StaticClass: any;
-	static GetClassObject(): Class;
-	static GetDefaultObject(): TankBarrel;
-	static GetDefaultSubobjectByName(Name: string): UObject;
-	static SetDefaultSubobjectClass(Name: string): void;
-	static CreateDefaultSubobject(Name: string, Transient?: boolean, Required?: boolean, Abstract?: boolean): TankBarrel;
-	static C(Other: UObject): TankBarrel;
-}
-
 declare class Tank extends Pawn { 
 	LaunchSpeed: number;
 	ReloadTime: number;
@@ -6786,7 +6787,6 @@ declare class Tank extends Pawn {
 	static GetDefaultSubobjectByName(Name: string): UObject;
 	static SetDefaultSubobjectClass(Name: string): void;
 	static CreateDefaultSubobject(Name: string, Transient?: boolean, Required?: boolean, Abstract?: boolean): Tank;
-	SetTurretReference(turretToSet: TankTurret): void;
 	SetBarrelReference(barrelToSet: TankBarrel): void;
 	Fire(): void;
 	static C(Other: UObject): Tank;

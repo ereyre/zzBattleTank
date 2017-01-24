@@ -31,7 +31,8 @@ private:
 	virtual void SetupPlayerInputComponent(class UInputComponent* InputComponent) override;
 
 	// local reference for spawning projectile
-	UTankBarrel* Barrel = nullptr;
+	UTankBarrel* Barrel = nullptr;   //TODO remove
+
 
 	
 
@@ -39,25 +40,20 @@ private:
 
 public:
 	
-	UPROPERTY(EditDEfaultsOnly, Category = Firing)
+	UPROPERTY(EditDEfaultsOnly, Category = "Firing")
 		float LaunchSpeed = 10000;   //sensible starting value of 1000 m/s
 
-	UPROPERTY(EditDEfaultsOnly, Category = Firing)
+	UPROPERTY(EditDEfaultsOnly, Category = "Firing")
 		float ReloadTime = 3.0;
 
 
-	UPROPERTY(EditDEfaultsOnly, Category = Setup)
+	UPROPERTY(EditDEfaultsOnly, Category = "Setup")
 		TSubclassOf<AProjectile> ProjectileBlueprint; // le pourquoi : https://docs.unrealengine.com/latest/INT/Programming/UnrealArchitecture/TSubclassOf/
 
 	
-
-	UFUNCTION(BlueprintCallable, Category = Setup)
-	void SetBarrelReference(UTankBarrel* barrelToSet);
-
-	UFUNCTION(BlueprintCallable, Category = Setup)
-		void SetTurretReference(UTankTurret* turretToSet);
+	
  
-	UFUNCTION(BlueprintCallable, Category = Firing)
+	UFUNCTION(BlueprintCallable, Category = "Firing")
 		void Fire();
 
 	void AimAt(FVector hitLocation);

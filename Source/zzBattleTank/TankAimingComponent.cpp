@@ -73,25 +73,25 @@ void UTankAimingComponent::AimAt(FVector hitLocation, float launchSpeed)
 		UE_LOG(LogTemp, Warning, TEXT("%f : No valid shoot solution for %s"), time, *GetOwner()->GetName())
 	}
 	*/
-	
-
 	//DrawDebugLine(GetWorld(), startLocation, hitLocation, FColor(255, 0, 0), false, -1.0f, 0.0f, 10.0f);
 
 
 }
 
-void UTankAimingComponent::SetBarrelReference(UTankBarrel * barrelToSet)
+void UTankAimingComponent::Initialise(UTankBarrel * barrelToSet, UTankTurret * turretToSet)
 {
 	Barrel = barrelToSet;
-}
-
-void UTankAimingComponent::SetTurretReference(UTankTurret * turretToSet)
-{
 	Turret = turretToSet;
 }
 
+
 void UTankAimingComponent::MoveBarrelTowards(FVector aimDirection)
 {
+
+	if (!Barrel || !Turret) {
+		UE_LOG(LogTemp, Warning, TEXT("Move Barel fail because of missing Barrel or Turret"));
+		return;
+	}
 
 	// Workout difference between current barel rotation and aimDirection
 
@@ -102,15 +102,7 @@ void UTankAimingComponent::MoveBarrelTowards(FVector aimDirection)
 	
 
 	Barrel->Elevate(deltaRotator.Pitch); 
-
 	Turret->Rotate(deltaRotator.Yaw);  
-
-
-
-	// Move the barrel the right amount this frame
-	// Given a max elevation speed, and the frame time
-
-
 
 }
 

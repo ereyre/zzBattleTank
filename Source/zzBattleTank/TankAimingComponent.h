@@ -45,9 +45,11 @@ public:
 	// to aim at a direction
 	void AimAt(FVector hitLocation,float launchSpeed);
 
-	void SetBarrelReference(UTankBarrel* barrelToSet);
+	// IKnitialise movement Compoenent and add tracks
+	UFUNCTION(BlueprintCallable, Category = "Setup")
+		void Initialise(UTankBarrel* barrelToSet, UTankTurret* turretToSet);
 
-	void SetTurretReference(UTankTurret* turretToSet);
+
 
 	void MoveBarrelTowards(FVector aimDirection);
 
