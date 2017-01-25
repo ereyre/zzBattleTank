@@ -8,7 +8,6 @@
 
 //Forward declaration
 class UTankBarrel; 
-class UTankAimingComponent;
 class UTankTurret; 
 class AProjectile;
 
@@ -40,8 +39,7 @@ private:
 
 public:
 	
-	UPROPERTY(EditDEfaultsOnly, Category = "Firing")
-		float LaunchSpeed = 10000;   //sensible starting value of 1000 m/s
+
 
 	UPROPERTY(EditDEfaultsOnly, Category = "Firing")
 		float ReloadTime = 3.0;
@@ -59,11 +57,5 @@ public:
 	void AimAt(FVector hitLocation);
 	
 
-protected:
-
-	UPROPERTY(BlueprintReadOnly)
-	UTankAimingComponent* TankAimingComponent = nullptr;
-
-	
 	
 };

@@ -43,13 +43,14 @@ public:
 	virtual void TickComponent( float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction ) override;
 
 	// to aim at a direction
-	void AimAt(FVector hitLocation,float launchSpeed);
+	void AimAt(FVector hitLocation);
 
 	// IKnitialise movement Compoenent and add tracks
 	UFUNCTION(BlueprintCallable, Category = "Setup")
 		void Initialise(UTankBarrel* barrelToSet, UTankTurret* turretToSet);
 
-
+	UPROPERTY(EditDEfaultsOnly, Category = "Firing")
+		float LaunchSpeed = 10000;   //sensible starting value of 1000 m/s
 
 	void MoveBarrelTowards(FVector aimDirection);
 

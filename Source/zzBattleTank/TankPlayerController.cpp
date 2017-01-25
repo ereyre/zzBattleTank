@@ -1,49 +1,20 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "zzBattleTank.h"
-#include "Tank.h"
 #include "TankAimingComponent.h"
 #include "TankPlayerController.h"
 
-
-ATank* ATankPlayerController::GetControlledTank() const 
-{
-	return Cast<ATank>(GetPawn());
-}
 
 
 void ATankPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
-	ATank* tank = GetControlledTank();
-
-	if (!tank) {
-		UE_LOG(LogTemp, Error, TEXT(" Error while geting possesed tank"));
-		return;
-
-	}
-	else
-	{
-		UE_LOG(LogTemp, Warning, TEXT("PlayerController Begin Play %s "), *tank->GetName());
-	}
-
-	auto aimingComponent = tank->FindComponentByClass<UTankAimingComponent>();
-	
-	if (aimingComponent)
-		FoundAimingComponent(aimingComponent);
-	else {
-		UE_LOG(LogTemp, Error, TEXT(" Begin play @ Tank player Controler : cant find aiming component"));
-	}
-
-
 
 }
 
 void ATankPlayerController::AimTowardCrosshair()
 {
-	if (!ensure(GetControlledTank()))
-		return;   //do nothing
-
+	
 
 	FVector hitLocation; // Out parameter
 	
@@ -51,7 +22,14 @@ void ATankPlayerController::AimTowardCrosshair()
 		// if we hits the landscape
 		// tell controlled tank to aim at this point
 
-		GetControlledTank()->AimAt(hitLocation);
+		//get my aiming component to be able to aim and fire
+
+		
+		UTankAimingComponent* tankAimingComp = GetPawn()->FindComponentByClass<UTankAimingComponent>();
+		if (!ensure(tankAimingComp)) { return; }
+
+		
+		tankAimingComp->AimAt(hitLocation);
 	}
 
 	

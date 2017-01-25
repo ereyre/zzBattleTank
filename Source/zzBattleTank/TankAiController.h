@@ -6,7 +6,7 @@
 #include "TankAiController.generated.h"
 
 
-class ATank;
+
 
 /**
  *  Tanp Cpp AI Controller

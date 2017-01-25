@@ -3,7 +3,6 @@
 #include "zzBattleTank.h"
 #include "TankBarrel.h"
 #include "TankTurret.h"
-#include "TankAimingComponent.h"
 #include "Projectile.h"
 #include "Tank.h"
 
@@ -14,8 +13,7 @@ ATank::ATank()
  	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = false;
 
-	UE_LOG(LogTemp, Warning, TEXT("MMM : DAns le constructeur du tank"));
-
+	
 }
 
 // Called when the game starts or when spawned
@@ -23,9 +21,7 @@ void ATank::BeginPlay()
 {
 	Super::BeginPlay();
 
-	UE_LOG(LogTemp, Warning, TEXT("MMM : DAns le Begin play du tank"));
-
-	TankAimingComponent = FindComponentByClass<UTankAimingComponent>();
+	
 	
 }
 
@@ -37,17 +33,6 @@ void ATank::SetupPlayerInputComponent(class UInputComponent* inputComponent)
 
 }
 
-void ATank::AimAt(FVector hitLocation)
-{
-	if (!ensure(TankAimingComponent)) {
-		//UE_LOG(LogTemp, Error, TEXT(" PAs de aiming component dans le char !!!!"));
-		return;
-	}
-	
-	TankAimingComponent->AimAt(hitLocation, LaunchSpeed);
-
-	
-}
 
 
 
@@ -83,7 +68,8 @@ void ATank::Fire()
 			startLocation,
 			startRotation);
 
-		projectile->LaunchProjectile(LaunchSpeed);
+		float dummyLaunchSpeed = 0.0f; // TODO remove once wired
+		projectile->LaunchProjectile(dummyLaunchSpeed); // TODO : correct when refactored
 
 
 		//reset timmer for fire

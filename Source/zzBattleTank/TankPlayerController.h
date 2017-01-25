@@ -8,7 +8,6 @@
 
 
 // forward declaration
-class ATank;
 class UTankAimingComponent;
 
 /**
@@ -30,9 +29,7 @@ public:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "TankPlayerController")
 		float LineTraceRange =1000000.0f;
 
-protected:
-	UFUNCTION(BlueprintCallable, Category = "Setup")
-		ATank* GetControlledTank() const;
+	virtual void BeginPlay() override;
 
 	UFUNCTION(BlueprintImplementableEvent, Category = "Setup")
 		void FoundAimingComponent(UTankAimingComponent* AimCompRef);
@@ -42,10 +39,6 @@ private:
 	// Called every frame
 
 	virtual void PlayerTick(float DeltaTime) override;
-
-	
-
-	virtual void BeginPlay() override;
 
 	void AimTowardCrosshair();
 

@@ -2,6 +2,7 @@
 
 #include "zzBattleTank.h"
 #include "Tank.h"
+#include "TankAimingComponent.h"
 #include "TankAiController.h"
 
 
@@ -9,11 +10,7 @@
 void ATankAiController::BeginPlay()
 {
 	Super::BeginPlay();
-	ATank* tank = Cast<ATank>(GetWorld()->GetFirstPlayerController()->GetPawn());
-
-	if (!tank) {
-		UE_LOG(LogTemp, Error, TEXT(" AI Say : I dont find any player tank"))
-	}
+	
 	
 }
 
@@ -28,10 +25,14 @@ void ATankAiController::Tick(float DeltaTime)
 	// aim at it (if exist)
 	if (playerTank) {
 
+		//get my aiming component to be able to aim and fire
+		UTankAimingComponent* tankAimingComp = myAiTank->FindComponentByClass<UTankAimingComponent>();
+		if (!ensure(tankAimingComp)) { return;  }
+
 		// TODO move toward the player
 		MoveToActor(playerTank, AcceptanceRadius); //TODO check if radius is in centimenter
 		// Aim toward th eplayer
-		myAiTank->AimAt(playerTank->GetActorLocation());
+		tankAimingComp->AimAt(playerTank->GetActorLocation());
 
 
 		// Fire if ready
