@@ -4,7 +4,6 @@
 #include "TankBarrel.h"
 #include "TankTurret.h"
 #include "TankAimingComponent.h"
-#include "TankMovementComponent.h"
 #include "Projectile.h"
 #include "Tank.h"
 
@@ -25,6 +24,8 @@ void ATank::BeginPlay()
 	Super::BeginPlay();
 
 	UE_LOG(LogTemp, Warning, TEXT("MMM : DAns le Begin play du tank"));
+
+	TankAimingComponent = FindComponentByClass<UTankAimingComponent>();
 	
 }
 
@@ -38,8 +39,8 @@ void ATank::SetupPlayerInputComponent(class UInputComponent* inputComponent)
 
 void ATank::AimAt(FVector hitLocation)
 {
-	if (!TankAimingComponent) {
-		UE_LOG(LogTemp, Error, TEXT(" PAs de aiming component dans le char !!!!"));
+	if (!ensure(TankAimingComponent)) {
+		//UE_LOG(LogTemp, Error, TEXT(" PAs de aiming component dans le char !!!!"));
 		return;
 	}
 	
@@ -55,10 +56,10 @@ void ATank::Fire()
 {
 	
 	// protects
-	if (!Barrel)
+	if (!ensure(Barrel))
 		return;
 
-	if (!ProjectileBlueprint) {
+	if (!ensure(ProjectileBlueprint)) {
 		auto time = GetWorld()->GetTimeSeconds();
 		UE_LOG(LogTemp, Error, TEXT("%f : Tank fire Error : No projectile defined"), time);
 		return;

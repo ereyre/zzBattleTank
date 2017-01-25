@@ -2,6 +2,7 @@
 
 #include "zzBattleTank.h"
 #include "Tank.h"
+#include "TankAimingComponent.h"
 #include "TankPlayerController.h"
 
 
@@ -17,17 +18,30 @@ void ATankPlayerController::BeginPlay()
 	ATank* tank = GetControlledTank();
 
 	if (!tank) {
-		UE_LOG(LogTemp, Error, TEXT(" Error while geting possesed tank")) 
+		UE_LOG(LogTemp, Error, TEXT(" Error while geting possesed tank"));
+		return;
+
 	}
 	else
 	{
 		UE_LOG(LogTemp, Warning, TEXT("PlayerController Begin Play %s "), *tank->GetName());
 	}
+
+	auto aimingComponent = tank->FindComponentByClass<UTankAimingComponent>();
+	
+	if (aimingComponent)
+		FoundAimingComponent(aimingComponent);
+	else {
+		UE_LOG(LogTemp, Error, TEXT(" Begin play @ Tank player Controler : cant find aiming component"));
+	}
+
+
+
 }
 
 void ATankPlayerController::AimTowardCrosshair()
 {
-	if (!GetControlledTank())
+	if (!ensure(GetControlledTank()))
 		return;   //do nothing
 
 

@@ -11,7 +11,7 @@ class UTankBarrel;
 class UTankAimingComponent;
 class UTankTurret; 
 class AProjectile;
-class UTankMovementComponent;
+
 
 // Tank Cpp based on Pawn
 UCLASS()
@@ -64,8 +64,6 @@ protected:
 	UPROPERTY(BlueprintReadOnly)
 	UTankAimingComponent* TankAimingComponent = nullptr;
 
-	// Local reference for the driver by wire component
-	UPROPERTY(BlueprintReadOnly)
-		UTankMovementComponent* TankMovementComponent = nullptr;
+	
 	
 };
