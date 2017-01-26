@@ -27,9 +27,7 @@ void ATankPlayerController::AimTowardCrosshair()
 	if (!isInit)
 		return; 
 	
-	UTankAimingComponent* tankAimingComp = GetPawn()->FindComponentByClass<UTankAimingComponent>();
-	if (!ensure(tankAimingComp)) { return; }
-
+	
 	FVector hitLocation; // Out parameter
 	
 	if (GetSightHiRaytLocation(hitLocation)) {
@@ -38,7 +36,10 @@ void ATankPlayerController::AimTowardCrosshair()
 
 		//get my aiming component to be able to aim and fire
 
-		
+		// preotect get pawn
+		if (!GetPawn())
+			return;
+
 		UTankAimingComponent* tankAimingComp = GetPawn()->FindComponentByClass<UTankAimingComponent>();
 		if (!ensure(tankAimingComp)) { return; }
 

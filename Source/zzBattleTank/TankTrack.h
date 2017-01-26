@@ -15,6 +15,8 @@ class ZZBATTLETANK_API UTankTrack : public UStaticMeshComponent
 	
 public:
 	
+	
+
 	// Set the throtttle between -1 and 1
 	UFUNCTION (BlueprintCallable, Category = "Input")
 		void SetThrottle(float throttle);
@@ -23,4 +25,11 @@ public:
 	UPROPERTY(EditDefaultsOnly)
 		float TrackMaxDrivingForce = 400000; // assuming tank is 40T, and 1g acceleration
 	
+private:
+	UTankTrack();
+
+	virtual void BeginPlay() override;
+	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+
+
 };

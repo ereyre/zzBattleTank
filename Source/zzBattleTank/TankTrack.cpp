@@ -5,13 +5,16 @@
 
 
 
-void UTankTrack::SetThrottle(float throttle) {
+UTankTrack::UTankTrack() {
 
-	/*
-	auto time = GetWorld()->GetTimeSeconds();
-	auto name = GetName();
-	UE_LOG(LogTemp, Warning, TEXT("%f :  %s - Throttle set to %f"), time, *name, throttle);
-	*/
+	// will tick evry frame
+	PrimaryComponentTick.bCanEverTick = true;
+	PrimaryComponentTick.bStartWithTickEnabled = true;
+}
+
+
+
+void UTankTrack::SetThrottle(float throttle) {
 
 	// Clamp throttle value to avoid overdriving
 	FVector forceApplied = GetForwardVector() * throttle * TrackMaxDrivingForce;
@@ -21,4 +24,16 @@ void UTankTrack::SetThrottle(float throttle) {
 
 	tankRoot->AddForceAtLocation(forceApplied, forceLocation);
 
+}
+
+void UTankTrack::BeginPlay()
+{
+	Super::BeginPlay();
+}
+
+void UTankTrack::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
+{
+	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+	
+	UE_LOG(LogTemp, Warning, TEXT("Ping des chaines"));
 }
