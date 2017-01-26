@@ -3,9 +3,12 @@
 #include "zzBattleTank.h"
 #include "TankTrack.h"
 
+
+
 UTankTrack::UTankTrack()
 {
 	PrimaryComponentTick.bCanEverTick = true;
+	
 }
 
 
@@ -24,8 +27,9 @@ void UTankTrack::SetThrottle(float throttle) {
 
 
 
-void UTankTrack::TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction)
+void UTankTrack::CustomTick(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction)
 {
+	
 
 	UE_LOG(LogTemp, Warning, TEXT("I was here"));
 

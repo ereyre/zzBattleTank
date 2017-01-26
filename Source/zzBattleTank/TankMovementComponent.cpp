@@ -46,6 +46,12 @@ void UTankMovementComponent::Initialise(UTankTrack * leftTrack, UTankTrack * rig
 	
 }
 
+void UTankMovementComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction * ThisTickFunction)
+{
+	LeftTrack->CustomTick(DeltaTime, TickType, ThisTickFunction); 
+	RightTrack->CustomTick(DeltaTime, TickType, ThisTickFunction);
+}
+
 void UTankMovementComponent::RequestDirectMove(const FVector & MoveVelocity, bool bForceMaxSpeed)
 {
 	

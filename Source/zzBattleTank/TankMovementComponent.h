@@ -30,7 +30,8 @@ public:
 
 	//TODO check best protection
 
-
+	// Setup Tick as a workaround for the tracks
+	virtual void TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction * ThisTickFunction) override;
 
 	/** path following: request new velocity */
 	virtual void RequestDirectMove(const FVector& MoveVelocity, bool bForceMaxSpeed) override;
