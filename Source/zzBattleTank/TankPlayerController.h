@@ -40,7 +40,7 @@ private:
 
 	// Called every frame
 
-	virtual void PlayerTick(float DeltaTime) override;
+	virtual void Tick(float DeltaTime) override;
 
 	void AimTowardCrosshair();
 

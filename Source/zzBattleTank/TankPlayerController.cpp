@@ -125,7 +125,7 @@ bool ATankPlayerController::GetLookVectorHitLocation(FVector lookDirection, FVec
 // Tick
 
 
-void ATankPlayerController::PlayerTick(float DeltaTime)
+void ATankPlayerController::Tick(float DeltaTime)
 {
 	Super::PlayerTick(DeltaTime);
 
