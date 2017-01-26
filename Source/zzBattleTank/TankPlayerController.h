@@ -32,7 +32,9 @@ public:
 	virtual void BeginPlay() override;
 
 	UFUNCTION(BlueprintImplementableEvent, Category = "Setup")
-		void FoundAimingComponent(UTankAimingComponent* AimCompRef);
+		 void FoundAimingComponent(UTankAimingComponent* AimCompRef);
+
+
 
 private:
 
@@ -48,5 +50,6 @@ private:
 
 	bool GetLookVectorHitLocation(FVector lookDirection, FVector& hitLocation) const;
 
+	bool isInit = false;
 	
 };

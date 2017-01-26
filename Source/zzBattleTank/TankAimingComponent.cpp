@@ -3,6 +3,7 @@
 #include "zzBattleTank.h"
 #include "TankBarrel.h"
 #include "TankTurret.h"
+#include "Projectile.h"
 #include "TankAimingComponent.h"
 
 
@@ -104,3 +105,42 @@ void UTankAimingComponent::MoveBarrelTowards(FVector aimDirection)
 
 }
 
+void UTankAimingComponent::Fire()
+{
+	// protects
+	if (!ensure(Barrel))
+		return;
+
+	if (!ensure(ProjectileBlueprint)) {
+		auto time = GetWorld()->GetTimeSeconds();
+		UE_LOG(LogTemp, Error, TEXT("%f : Tank fire Error : No projectile defined"), time);
+		return;
+	}
+
+	bool isReloaded = (FPlatformTime::Seconds() - LastFireTime) > ReloadTime;
+
+	if (isReloaded) {
+		// Spawn a projectile 
+
+		FVector  startLocation = Barrel->GetSocketLocation(FName("Projectile"));
+		FRotator startRotation = Barrel->GetSocketRotation(FName("Projectile"));
+
+		/*
+		auto time = GetWorld()->GetTimeSeconds();
+		UE_LOG(LogTemp, Warning, TEXT("%f : Tank fire at from  %s"), time, *startLocation.ToString());
+		*/
+
+		auto projectile = GetWorld()->SpawnActor<AProjectile>(
+			ProjectileBlueprint,
+			startLocation,
+			startRotation);
+
+		
+		projectile->LaunchProjectile(LaunchSpeed); 
+
+
+														//reset timmer for fire
+		LastFireTime = FPlatformTime::Seconds();
+	}
+
+}

@@ -20,6 +20,8 @@ enum class EFiringStatus : uint8
 //Forward declaration
 class UTankBarrel; 
 class UTankTurret;
+class AProjectile;
+
 
 // Holds barrel's properties and Elevate method
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
@@ -54,11 +56,30 @@ public:
 
 	void MoveBarrelTowards(FVector aimDirection);
 
+	// Fire the main gun
+	UFUNCTION(BlueprintCallable, Category = "Firing")
+		void Fire();
+
+
+
+	UPROPERTY(EditDEfaultsOnly, Category = "Firing")
+		float ReloadTime = 3.0;
+
+
+	UPROPERTY(EditDEfaultsOnly, Category = "Setup")
+		TSubclassOf<AProjectile> ProjectileBlueprint; // le pourquoi : https://docs.unrealengine.com/latest/INT/Programming/UnrealArchitecture/TSubclassOf/
+
+
+
+
+
+
+
 private:
 	UTankBarrel* Barrel = nullptr;
 	UTankTurret* Turret = nullptr;
 
-	
+	double LastFireTime = 0;
 
 
 	

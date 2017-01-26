@@ -18,7 +18,8 @@ void ATankAiController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	// Find the player tank
+	// Find the player tank  
+	// TODO Convert from Tank to Pawn
 	ATank* playerTank = Cast<ATank>(GetWorld()->GetFirstPlayerController()->GetPawn());
 	ATank* myAiTank = Cast<ATank>(GetPawn());
 
@@ -36,7 +37,7 @@ void ATankAiController::Tick(float DeltaTime)
 
 
 		// Fire if ready
-		myAiTank->Fire();
+		tankAimingComp->Fire();
 
 	}
 }

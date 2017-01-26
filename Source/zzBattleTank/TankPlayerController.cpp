@@ -10,11 +10,25 @@ void ATankPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
 
+	isInit = true;
+
+	auto AimingComponent = GetPawn()->FindComponentByClass<UTankAimingComponent>();
+	if (!ensure(AimingComponent)) { return; }
+	FoundAimingComponent(AimingComponent);
+
 }
+
+
+
 
 void ATankPlayerController::AimTowardCrosshair()
 {
+	//safe protect to avoid strange behaviour at creation time
+	if (!isInit)
+		return; 
 	
+	UTankAimingComponent* tankAimingComp = GetPawn()->FindComponentByClass<UTankAimingComponent>();
+	if (!ensure(tankAimingComp)) { return; }
 
 	FVector hitLocation; // Out parameter
 	
@@ -68,6 +82,9 @@ bool ATankPlayerController::GetLookDirection(FVector2D screenLocation, FVector& 
 
 	return true;
 }
+
+
+
 
 bool ATankPlayerController::GetLookVectorHitLocation(FVector lookDirection, FVector & hitLocation) const
 {

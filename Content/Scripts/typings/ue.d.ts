@@ -6692,8 +6692,6 @@ declare class Projectile extends Actor {
 }
 
 declare class Tank extends Pawn { 
-	ReloadTime: number;
-	ProjectileBlueprint: UnrealEngineClass;
 	constructor(InWorld: World, Location?: Vector, Rotation?: Rotator);
 	static StaticClass: any;
 	static GetClassObject(): Class;
@@ -6701,7 +6699,6 @@ declare class Tank extends Pawn {
 	static GetDefaultSubobjectByName(Name: string): UObject;
 	static SetDefaultSubobjectClass(Name: string): void;
 	static CreateDefaultSubobject(Name: string, Transient?: boolean, Required?: boolean, Abstract?: boolean): Tank;
-	Fire(): void;
 	static C(Other: UObject): Tank;
 }
 
@@ -6753,6 +6750,8 @@ declare class TankTurret extends StaticMeshComponent {
 declare class TankAimingComponent extends ActorComponent { 
 	FiringStatus: EFiringStatus;
 	LaunchSpeed: number;
+	ReloadTime: number;
+	ProjectileBlueprint: UnrealEngineClass;
 	constructor();
 	constructor(Outer: UObject);
 	static Load(ResourceName: string): TankAimingComponent;
@@ -6764,6 +6763,7 @@ declare class TankAimingComponent extends ActorComponent {
 	static SetDefaultSubobjectClass(Name: string): void;
 	static CreateDefaultSubobject(Name: string, Transient?: boolean, Required?: boolean, Abstract?: boolean): TankAimingComponent;
 	Initialise(barrelToSet: TankBarrel,turretToSet: TankTurret): void;
+	Fire(): void;
 	static C(Other: UObject): TankAimingComponent;
 }
 
@@ -6811,7 +6811,6 @@ declare class TankPlayerController extends PlayerController {
 	static GetDefaultSubobjectByName(Name: string): UObject;
 	static SetDefaultSubobjectClass(Name: string): void;
 	static CreateDefaultSubobject(Name: string, Transient?: boolean, Required?: boolean, Abstract?: boolean): TankPlayerController;
-	GetControlledTank(): Tank;
 	FoundAimingComponent(AimCompRef: TankAimingComponent): void;
 	static C(Other: UObject): TankPlayerController;
 }
