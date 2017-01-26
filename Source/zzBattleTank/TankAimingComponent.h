@@ -54,7 +54,7 @@ public:
 	UPROPERTY(EditDEfaultsOnly, Category = "Firing")
 		float LaunchSpeed = 10000;   //sensible starting value of 1000 m/s
 
-	void MoveBarrelTowards(FVector aimDirection);
+	void MoveBarrelTowards();
 
 	// Fire the main gun
 	UFUNCTION(BlueprintCallable, Category = "Firing")
@@ -81,6 +81,9 @@ private:
 
 	double LastFireTime = 0;
 
+	bool IsBarrelMoving();
+
+	FVector AimDirection; 
 
 	
 };

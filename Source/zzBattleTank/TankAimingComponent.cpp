@@ -17,6 +17,8 @@ UTankAimingComponent::UTankAimingComponent()
 	// initialisation of the default for the fireingstatus
 	FiringStatus = EFiringStatus::Reloading;
 
+	AimDirection = FVector(0.0f);
+
 }
 
 
@@ -25,8 +27,8 @@ void UTankAimingComponent::BeginPlay()
 {
 	Super::BeginPlay();
 
-	// ...
-	
+	// So first fire is dalayed for the first reload
+	LastFireTime = FPlatformTime::Seconds();
 }
 
 
@@ -36,6 +38,16 @@ void UTankAimingComponent::TickComponent( float DeltaTime, ELevelTick TickType, 
 	Super::TickComponent( DeltaTime, TickType, ThisTickFunction );
 
 	// ...
+	if ((FPlatformTime::Seconds() - LastFireTime) < ReloadTime) {
+		FiringStatus = EFiringStatus::Reloading;
+	}
+	else if (IsBarrelMoving())
+	{
+		FiringStatus = EFiringStatus::Aiming;
+	}
+	else {
+		FiringStatus = EFiringStatus::Locked;
+	}
 }
 
 void UTankAimingComponent::AimAt(FVector hitLocation)
@@ -62,8 +74,8 @@ void UTankAimingComponent::AimAt(FVector hitLocation)
 	);
 
 	if (bHaveAimSolution) {
-		FVector aimDirection = outLaunchVelocity.GetSafeNormal();
-		MoveBarrelTowards(aimDirection);
+		AimDirection = outLaunchVelocity.GetSafeNormal();
+		MoveBarrelTowards();
 
 
 	}
@@ -84,7 +96,7 @@ void UTankAimingComponent::Initialise(UTankBarrel * barrelToSet, UTankTurret * t
 }
 
 
-void UTankAimingComponent::MoveBarrelTowards(FVector aimDirection)
+void UTankAimingComponent::MoveBarrelTowards()
 {
 
 	if (!Barrel || !Turret) {
@@ -95,10 +107,9 @@ void UTankAimingComponent::MoveBarrelTowards(FVector aimDirection)
 	// Workout difference between current barel rotation and aimDirection
 
 	auto barrelRotation = Barrel->GetForwardVector().Rotation();
-	auto aimAsRotator = aimDirection.Rotation();
+	auto aimAsRotator = AimDirection.Rotation();
 	auto deltaRotator = aimAsRotator - barrelRotation;
 
-	
 
 	Barrel->Elevate(deltaRotator.Pitch); 
 	Turret->Rotate(deltaRotator.Yaw);  
@@ -112,14 +123,13 @@ void UTankAimingComponent::Fire()
 		return;
 
 	if (!ensure(ProjectileBlueprint)) {
-		auto time = GetWorld()->GetTimeSeconds();
-		UE_LOG(LogTemp, Error, TEXT("%f : Tank fire Error : No projectile defined"), time);
+		UE_LOG(LogTemp, Error, TEXT("Tank fire Error : No projectile defined"));
 		return;
 	}
 
-	bool isReloaded = (FPlatformTime::Seconds() - LastFireTime) > ReloadTime;
+	
 
-	if (isReloaded) {
+	if (FiringStatus != EFiringStatus::Reloading) {
 		// Spawn a projectile 
 
 		FVector  startLocation = Barrel->GetSocketLocation(FName("Projectile"));
@@ -143,4 +153,15 @@ void UTankAimingComponent::Fire()
 		LastFireTime = FPlatformTime::Seconds();
 	}
 
+}
+
+bool UTankAimingComponent::IsBarrelMoving()
+{
+	if (!ensure(Barrel)) { return false; }
+
+	auto barrelForward = Barrel->GetForwardVector();
+
+
+
+	return !barrelForward.Equals(AimDirection, 0.01f); 
 }
