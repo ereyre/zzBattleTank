@@ -3,13 +3,9 @@
 #include "zzBattleTank.h"
 #include "TankTrack.h"
 
-
-
-UTankTrack::UTankTrack() {
-
-	// will tick evry frame
+UTankTrack::UTankTrack()
+{
 	PrimaryComponentTick.bCanEverTick = true;
-	PrimaryComponentTick.bStartWithTickEnabled = true;
 }
 
 
@@ -26,14 +22,11 @@ void UTankTrack::SetThrottle(float throttle) {
 
 }
 
-void UTankTrack::BeginPlay()
-{
-	Super::BeginPlay();
-}
 
-void UTankTrack::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
+
+void UTankTrack::TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction)
 {
-	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-	
-	UE_LOG(LogTemp, Warning, TEXT("Ping des chaines"));
+
+	UE_LOG(LogTemp, Warning, TEXT("I was here"));
+
 }
