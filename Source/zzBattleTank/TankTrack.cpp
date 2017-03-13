@@ -29,6 +29,7 @@ void UTankTrack::SetThrottle(float throttle) {
 
 void UTankTrack::CustomTick(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction)
 {
+	if (true) return; //disabling the custom tick componeent
 	
 	//calculate the slippage speed
 	auto slippageSpeed = FVector::DotProduct(GetRightVector(), GetComponentVelocity());
@@ -42,3 +43,23 @@ void UTankTrack::CustomTick(float DeltaTime, enum ELevelTick TickType, FActorCom
 
 	tankRoot->AddForce(correctionForce);
 }
+
+
+
+void UTankTrack::TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction)
+{
+	UE_LOG(LogTemp, Warning, TEXT("Ping d'une des tracks"));
+
+	//calculate the slippage speed
+	auto slippageSpeed = FVector::DotProduct(GetRightVector(), GetComponentVelocity());
+
+	// Workout the required acceleration this fram to correct
+	auto correctionAcceleration = -slippageSpeed / DeltaTime * GetRightVector();
+
+	// Calculate and apply sideway for ( F = m a)
+	auto tankRoot = Cast<UStaticMeshComponent>(GetOwner()->GetRootComponent());
+	auto correctionForce = (tankRoot->GetMass() *correctionAcceleration) / 2;
+
+	tankRoot->AddForce(correctionForce);
+}
+

@@ -27,6 +27,8 @@ public:
 	
 	void CustomTick (float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction) ;
 
+	virtual void TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction) override;
+
 
 
 
