@@ -5,21 +5,15 @@ using System.Collections.Generic;
 
 public class zzBattleTankTarget : TargetRules
 {
-	public zzBattleTankTarget(TargetInfo Target)
+	public zzBattleTankTarget(TargetInfo Target) : base (Target)
 	{
 		Type = TargetType.Game;
+		ExtraModuleNames.Add("zzBattleTank");
 	}
 
 	//
 	// TargetRules interface.
 	//
 
-	public override void SetupBinaries(
-		TargetInfo Target,
-		ref List<UEBuildBinaryConfiguration> OutBuildBinaryConfigurations,
-		ref List<string> OutExtraModuleNames
-		)
-	{
-		OutExtraModuleNames.AddRange( new string[] { "zzBattleTank" } );
-	}
+
 }
